@@ -4,7 +4,6 @@ import com.example.demo_jwt.users.domain.entity.Driver;
 import com.example.demo_jwt.users.domain.service.DriverService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,11 +13,9 @@ import java.util.List;
 @RequestMapping("/api/drivers")
 public class DriverController {
     private final DriverService driverService;
-    private final PasswordEncoder passwordEncoder;
 
-    public DriverController(DriverService driverService, PasswordEncoder passwordEncoder) {
+    public DriverController(DriverService driverService) {
         this.driverService = driverService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,8 +34,6 @@ public class DriverController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Driver> save(@RequestBody Driver driver) {
-        String password = passwordEncoder.encode(driver.getPassword());
-        driver.setPassword(password);
         return ResponseEntity.ok(driverService.save(driver));
     }
 
