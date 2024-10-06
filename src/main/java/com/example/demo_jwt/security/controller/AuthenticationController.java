@@ -1,7 +1,7 @@
-package com.example.demo_jwt.kernel.security.controller;
+package com.example.demo_jwt.security.controller;
 
-import com.example.demo_jwt.kernel.security.service.AuthenticationService;
-import com.example.demo_jwt.kernel.security.entity.RequestAuthentication;
+import com.example.demo_jwt.security.service.AuthenticationService;
+import com.example.demo_jwt.security.entity.RequestAuthentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

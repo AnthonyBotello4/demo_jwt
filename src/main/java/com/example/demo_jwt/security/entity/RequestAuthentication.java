@@ -1,4 +1,4 @@
-package com.example.demo_jwt.kernel.security.entity;
+package com.example.demo_jwt.security.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

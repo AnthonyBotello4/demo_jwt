@@ -1,6 +1,6 @@
-package com.example.demo_jwt.kernel.security.service;
+package com.example.demo_jwt.security.service;
 
-import com.example.demo_jwt.kernel.security.JwtUtil;
+import com.example.demo_jwt.security.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

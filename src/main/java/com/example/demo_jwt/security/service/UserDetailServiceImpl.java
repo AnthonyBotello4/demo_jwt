@@ -1,4 +1,4 @@
-package com.example.demo_jwt.kernel.security.service;
+package com.example.demo_jwt.security.service;
 
 import com.example.demo_jwt.users.domain.entity.Driver;
 import com.example.demo_jwt.users.domain.entity.Supervisor;
