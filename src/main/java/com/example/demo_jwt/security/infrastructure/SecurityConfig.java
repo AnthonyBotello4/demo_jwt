@@ -1,4 +1,4 @@
-package com.example.demo_jwt.security;
+package com.example.demo_jwt.security.infrastructure;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,8 @@ public class SecurityConfig {
 
     private static final String[] WHITE_LIST_URL = {
             "/authenticate",
-            "/api/drivers",
+            "/api/drivers/register/**",
+            "/api/supervisors/register/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
@@ -48,9 +49,9 @@ public class SecurityConfig {
 
         // Configuración de autorización
         http.authorizeHttpRequests(
-            authorizeRequests -> authorizeRequests
-                    .requestMatchers(WHITE_LIST_URL).permitAll() // Permitir acceso público a la ruta /authenticate
-                    .anyRequest().authenticated());
+                authorizeRequests -> authorizeRequests
+                        .requestMatchers(WHITE_LIST_URL).permitAll() // Permitir acceso público a la ruta /authenticate
+                        .anyRequest().authenticated());
 
         // Configurar la política de manejo de sesión
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

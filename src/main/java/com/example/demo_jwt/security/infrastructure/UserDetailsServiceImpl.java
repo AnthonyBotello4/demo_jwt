@@ -1,4 +1,4 @@
-package com.example.demo_jwt.security.service;
+package com.example.demo_jwt.security.infrastructure;
 
 import com.example.demo_jwt.users.domain.entity.Driver;
 import com.example.demo_jwt.users.domain.entity.Supervisor;
@@ -9,40 +9,39 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 
 @Service
-public class UserDetailServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final DriverRepository driverRepository;
     private final SupervisorRepository supervisorRepository;
 
-    public UserDetailServiceImpl(DriverRepository driverRepository, SupervisorRepository supervisorRepository) {
+    public UserDetailsServiceImpl(DriverRepository driverRepository, SupervisorRepository supervisorRepository) {
         this.driverRepository = driverRepository;
         this.supervisorRepository = supervisorRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Driver> driver = driverRepository.findByUsername(username);
+        Optional<Driver> driver = driverRepository.findByUser_Username(username);
         if (driver.isPresent()) {
             return User.builder()
-                    .username(driver.get().getUsername())
-                    .password(driver.get().getPassword()) // Asegúrate de que esté codificada con BCrypt
-                    .authorities("ROLE_DRIVER") // Puedes ajustar esto según tus necesidades
+                    .username(driver.get().getUser().getUsername())
+                    .password(driver.get().getUser().getPassword())
+                    .authorities("ROLE_DRIVER") //Todo: Adjust this according to the roles saved in the database
                     .build();
         }
 
         System.out.println("username: " + username + "Not found in driver table");
 
-        Optional<Supervisor> supervisor = supervisorRepository.findByUsername(username);
+        Optional<Supervisor> supervisor = supervisorRepository.findByUser_Username(username);
         if (supervisor.isPresent()) {
             return User.builder()
-                    .username(supervisor.get().getUsername())
-                    .password(supervisor.get().getPassword()) // Asegúrate de que esté codificada con BCrypt
-                    .authorities("ROLE_SUPERVISOR") // Puedes ajustar esto según tus necesidades
+                    .username(supervisor.get().getUser().getUsername())
+                    .password(supervisor.get().getUser().getPassword())
+                    .authorities("ROLE_SUPERVISOR")  // Todo: Adjust this according to the roles saved in the database
                     .build();
         }
 

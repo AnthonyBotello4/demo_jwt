@@ -1,21 +1,28 @@
 package com.example.demo_jwt.users.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@EqualsAndHashCode(callSuper = true)
+import java.io.Serializable;
+
 @Entity
 @Data
 @Table(name = "driver")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Driver extends User{
+public class Driver implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "plate", nullable = false)
     private String plate;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 }
