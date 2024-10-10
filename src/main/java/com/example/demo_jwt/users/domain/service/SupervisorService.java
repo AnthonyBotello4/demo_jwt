@@ -1,13 +1,14 @@
 package com.example.demo_jwt.users.domain.service;
 
-import com.example.demo_jwt.users.domain.entity.Supervisor;
+import com.example.demo_jwt.users.application.dto.request.SupervisorRegisterDto;
+import com.example.demo_jwt.users.application.dto.response.SupervisorResponseDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface SupervisorService {
-    Supervisor save(Supervisor supervisor);
+    SupervisorResponseDto save(SupervisorRegisterDto supervisor);
     void delete(Long id);
-    Optional<Supervisor> findById(Long id);
-    Optional<List<Supervisor>> findAll();
+    Optional<SupervisorResponseDto> findById(Long id);
+    List<SupervisorResponseDto> findAll();
 }
