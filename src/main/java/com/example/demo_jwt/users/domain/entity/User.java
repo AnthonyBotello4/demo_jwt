@@ -38,8 +38,8 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "enabled", nullable = false)
-    private boolean enabled;
+    @Column(name = "enabled")
+    private boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",

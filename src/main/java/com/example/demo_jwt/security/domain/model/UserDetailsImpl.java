@@ -1,18 +1,12 @@
 package com.example.demo_jwt.security.domain.model;
 
-import com.example.demo_jwt.users.domain.entity.Driver;
-import com.example.demo_jwt.users.domain.entity.Supervisor;
-import com.example.demo_jwt.users.domain.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor

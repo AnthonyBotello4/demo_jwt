@@ -7,7 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +16,7 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/drivers")
+@PreAuthorize("hasRole('ROLE_DRIVER')")
 public class DriverController {
     private final DriverService driverService;
 
@@ -62,7 +63,8 @@ public class DriverController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         driverService.delete(id);
         return ResponseEntity.noContent().build();

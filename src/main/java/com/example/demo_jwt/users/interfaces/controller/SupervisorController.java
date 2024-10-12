@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/supervisors")
+@PreAuthorize("hasRole('ROLE_SUPERVISOR')")
 public class SupervisorController {
     
     private final SupervisorService supervisorService;
@@ -61,7 +63,8 @@ public class SupervisorController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         supervisorService.delete(id);
         return ResponseEntity.noContent().build();

@@ -3,7 +3,6 @@ package com.example.demo_jwt.users.domain.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -19,7 +18,7 @@ public class Driver implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "plate", nullable = false)
+    @Column(name = "plate")
     private String plate;
 
     @OneToOne(fetch = FetchType.EAGER)

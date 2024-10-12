@@ -3,12 +3,9 @@ package com.example.demo_jwt.users.domain.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Data
@@ -21,7 +18,7 @@ public class Supervisor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "department", nullable = false, length = 50)
+    @Column(name = "department", length = 50)
     private String department;
 
     @OneToOne(fetch = FetchType.EAGER)

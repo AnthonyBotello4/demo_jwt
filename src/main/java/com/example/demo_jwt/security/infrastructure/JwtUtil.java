@@ -14,7 +14,17 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    private final SecretKey secretKey = Jwts.SIG.HS256.key().build();
+    private final SecretKey secretKey =  Jwts.SIG.HS256.key().build();
+
+            //new SecretKeySpec("secret".getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+
+    /*public JwtUtil(@Value("${jwt.secret}") String secret) {
+        this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+    }
+
+    public SecretKey getSecretKey() {
+        return secretKey;
+    }*/
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

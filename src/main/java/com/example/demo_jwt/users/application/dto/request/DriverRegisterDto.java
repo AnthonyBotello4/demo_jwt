@@ -1,5 +1,6 @@
 package com.example.demo_jwt.users.application.dto.request;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,6 @@ public class DriverRegisterDto {
     @NotBlank(message = "La contraseña es obligatoria")
     private String password;
 
-    @NotBlank(message = "La placa es obligatoria")
+    @Nullable
     private String plate;
 }
