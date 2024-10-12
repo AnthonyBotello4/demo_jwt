@@ -1,5 +1,6 @@
 package com.example.demo_jwt.security.infrastructure;
 
+import com.example.demo_jwt.security.domain.model.UserDetailsImpl;
 import com.example.demo_jwt.users.domain.entity.Driver;
 import com.example.demo_jwt.users.domain.entity.Supervisor;
 import com.example.demo_jwt.users.domain.repository.DriverRepository;
@@ -29,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetailsImpl loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Driver> driver = driverRepository.findByUser_Username(username);
         if (driver.isPresent()) {
 
@@ -43,11 +44,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     .map(role -> new SimpleGrantedAuthority(role.getRoleName().name()))
                     .collect(Collectors.toList());
 
-            return User.builder()
+            return new UserDetailsImpl(driver.get().getUser().getUsername(), driver.get().getUser().getPassword(), driver.get().getId(), authorities);
+
+            /*return User.builder()
                     .username(driver.get().getUser().getUsername())
                     .password(driver.get().getUser().getPassword())
                     .authorities(authorities)
-                    .build();
+                    .build();*/
         }
 
         System.out.println("username: " + username + "Not found in driver table");
@@ -65,11 +68,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     .map(role -> new SimpleGrantedAuthority(role.getRoleName().name()))
                     .collect(Collectors.toList());
 
-            return User.builder()
+            return new UserDetailsImpl(supervisor.get().getUser().getUsername(), supervisor.get().getUser().getPassword(), supervisor.get().getId(), authorities);
+
+            /*return User.builder()
                     .username(supervisor.get().getUser().getUsername())
                     .password(supervisor.get().getUser().getPassword())
                     .authorities(authorities)
-                    .build();
+                    .build();*/
         }
 
         System.out.println("username: " + username + "Not found in supervisor table");

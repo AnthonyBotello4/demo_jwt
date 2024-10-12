@@ -14,6 +14,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private String username;
     private String password;
+    private Long userId;
     private Collection<? extends GrantedAuthority> authorities;
 
     /*public static UserDetailsImpl build(User user) {
