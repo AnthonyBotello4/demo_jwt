@@ -1,5 +1,7 @@
 package com.example.demo_jwt.users.domain.service;
 
+import com.example.demo_jwt.users.application.dto.response.DriverPrivateProfileDto;
+import com.example.demo_jwt.users.application.dto.response.DriverPublicProfileDto;
 import com.example.demo_jwt.users.application.dto.request.DriverRegisterDto;
 import com.example.demo_jwt.users.application.dto.response.DriverResponseDto;
 
@@ -11,4 +13,7 @@ public interface DriverService {
     void delete(Long id);
     Optional<DriverResponseDto> findById(Long id);
     List<DriverResponseDto> findAll();
+
+    Optional<DriverPrivateProfileDto> getPrivateProfile(Long id);
+    Optional<DriverPublicProfileDto> getPublicProfile(Long id);
 }

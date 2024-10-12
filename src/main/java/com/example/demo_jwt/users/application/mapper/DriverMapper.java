@@ -1,5 +1,7 @@
 package com.example.demo_jwt.users.application.mapper;
 
+import com.example.demo_jwt.users.application.dto.response.DriverPrivateProfileDto;
+import com.example.demo_jwt.users.application.dto.response.DriverPublicProfileDto;
 import com.example.demo_jwt.users.application.dto.request.DriverRegisterDto;
 import com.example.demo_jwt.users.application.dto.response.DriverResponseDto;
 import com.example.demo_jwt.users.domain.entity.Driver;
@@ -27,8 +29,31 @@ public interface DriverMapper {
             @Mapping(target = "firstLastName", source = "user.firstLastName"),
             @Mapping(target = "secondLastName", source = "user.secondLastName"),
             @Mapping(target = "email", source = "user.email"),
+            @Mapping(target = "phone", source = "user.phone")
+            //@Mapping(target = "username", source = "user.username"),
+            //@Mapping(target = "plate", source = "plate")
+    })
+    DriverResponseDto driverToResponseDto(Driver driver);
+
+    @Mappings({
+            @Mapping(target = "id", source = "id"),
+            @Mapping(target = "name", source = "user.name"),
+            @Mapping(target = "firstLastName", source = "user.firstLastName"),
+            @Mapping(target = "secondLastName", source = "user.secondLastName"),
+            @Mapping(target = "email", source = "user.email"),
+            @Mapping(target = "phone", source = "user.phone"),
             @Mapping(target = "username", source = "user.username"),
             @Mapping(target = "plate", source = "plate")
     })
-    DriverResponseDto driverToResponseDto(Driver driver);
+    DriverPrivateProfileDto driverToPrivateProfileDto(Driver driver);
+
+    @Mappings({
+            @Mapping(target = "id", source = "id"),
+            @Mapping(target = "name", source = "user.name"),
+            @Mapping(target = "firstLastName", source = "user.firstLastName"),
+            @Mapping(target = "secondLastName", source = "user.secondLastName"),
+            @Mapping(target = "email", source = "user.email"),
+            @Mapping(target = "phone", source = "user.phone")
+    })
+    DriverPublicProfileDto driverToPublicProfileDto(Driver driver);
 }

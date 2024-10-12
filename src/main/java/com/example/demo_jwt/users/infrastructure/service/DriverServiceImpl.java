@@ -1,5 +1,7 @@
 package com.example.demo_jwt.users.infrastructure.service;
 
+import com.example.demo_jwt.users.application.dto.response.DriverPrivateProfileDto;
+import com.example.demo_jwt.users.application.dto.response.DriverPublicProfileDto;
 import com.example.demo_jwt.users.application.dto.request.DriverRegisterDto;
 import com.example.demo_jwt.users.application.dto.response.DriverResponseDto;
 import com.example.demo_jwt.users.application.mapper.DriverMapper;
@@ -86,4 +88,18 @@ public class DriverServiceImpl implements DriverService {
                 .map(driverMapper::driverToResponseDto)
                 .toList();
     }
+
+    @Override
+    public Optional<DriverPrivateProfileDto> getPrivateProfile(Long id) {
+        return driverRepository.findById(id)
+                .map(driverMapper::driverToPrivateProfileDto);
+    }
+
+    @Override
+    public Optional<DriverPublicProfileDto> getPublicProfile(Long id) {
+        return driverRepository.findById(id)
+                .map(driverMapper::driverToPublicProfileDto);
+    }
+
+
 }

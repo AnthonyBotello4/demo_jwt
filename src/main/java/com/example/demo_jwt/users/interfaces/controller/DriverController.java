@@ -1,5 +1,8 @@
 package com.example.demo_jwt.users.interfaces.controller;
 
+import com.example.demo_jwt.security.domain.model.UserDetailsImpl;
+import com.example.demo_jwt.users.application.dto.response.DriverPrivateProfileDto;
+import com.example.demo_jwt.users.application.dto.response.DriverPublicProfileDto;
 import com.example.demo_jwt.users.application.dto.request.DriverRegisterDto;
 import com.example.demo_jwt.users.application.dto.response.DriverResponseDto;
 import com.example.demo_jwt.users.domain.service.DriverService;
@@ -8,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,12 +44,18 @@ public class DriverController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DriverResponseDto> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         try {
-            Optional<DriverResponseDto> driver = driverService.findById(id);
 
-            return driver.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+            if (userDetails.getUserId().equals(id)) {
+                Optional<DriverPrivateProfileDto> privateProfile = driverService.getPrivateProfile(id);
+                return privateProfile.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+
+            } else {
+                Optional<DriverPublicProfileDto> publicProfile = driverService.getPublicProfile(id);
+                return publicProfile.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+            }
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
