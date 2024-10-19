@@ -20,7 +20,6 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/drivers")
-@PreAuthorize("hasRole('ROLE_DRIVER')")
 public class DriverController {
     private final DriverService driverService;
 
@@ -28,6 +27,7 @@ public class DriverController {
         this.driverService = driverService;
     }
 
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DriverResponseDto>> findAll() {
         try{
@@ -43,6 +43,7 @@ public class DriverController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findById(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
@@ -73,11 +74,19 @@ public class DriverController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DRIVER')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        driverService.delete(id);
-        return ResponseEntity.noContent().build();
+        try {
+            if (driverService.existsById(id)) {
+                driverService.delete(id);
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     /*

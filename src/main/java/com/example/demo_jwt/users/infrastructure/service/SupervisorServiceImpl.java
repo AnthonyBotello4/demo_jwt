@@ -86,4 +86,9 @@ public class SupervisorServiceImpl implements SupervisorService {
                 .map(supervisorMapper::supervisorToResponseDto)
                 .toList();
     }
+
+    @Override
+    public boolean existsById(Long id) {
+        return supervisorRepository.existsById(id);
+    }
 }

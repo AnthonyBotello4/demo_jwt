@@ -16,7 +16,6 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/supervisors")
-@PreAuthorize("hasRole('ROLE_SUPERVISOR')")
 public class SupervisorController {
     
     private final SupervisorService supervisorService;
@@ -25,6 +24,7 @@ public class SupervisorController {
         this.supervisorService = supervisorService;
     }
 
+    @PreAuthorize("hasRole('ROLE_SUPERVISOR')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SupervisorResponseDto>> findAll() {
 
@@ -40,6 +40,7 @@ public class SupervisorController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_SUPERVISOR')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SupervisorResponseDto> findById(@PathVariable Long id) {
         try {
@@ -52,6 +53,7 @@ public class SupervisorController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_SUPERVISOR')")
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SupervisorResponseDto> save(@Valid @RequestBody SupervisorRegisterDto supervisorRegisterDto) {
 
@@ -63,11 +65,19 @@ public class SupervisorController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERVISOR')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        supervisorService.delete(id);
-        return ResponseEntity.noContent().build();
+        try{
+            if (supervisorService.existsById(id)) {
+                supervisorService.delete(id);
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     /*

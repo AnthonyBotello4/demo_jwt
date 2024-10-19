@@ -16,4 +16,6 @@ public interface DriverService {
 
     Optional<DriverPrivateProfileDto> getPrivateProfile(Long id);
     Optional<DriverPublicProfileDto> getPublicProfile(Long id);
+
+    boolean existsById(Long id);
 }

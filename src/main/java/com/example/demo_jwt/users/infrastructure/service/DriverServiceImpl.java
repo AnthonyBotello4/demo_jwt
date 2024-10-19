@@ -101,5 +101,8 @@ public class DriverServiceImpl implements DriverService {
                 .map(driverMapper::driverToPublicProfileDto);
     }
 
-
+    @Override
+    public boolean existsById(Long id) {
+        return driverRepository.existsById(id);
+    }
 }

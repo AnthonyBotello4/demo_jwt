@@ -11,4 +11,6 @@ public interface SupervisorService {
     void delete(Long id);
     Optional<SupervisorResponseDto> findById(Long id);
     List<SupervisorResponseDto> findAll();
+
+    boolean existsById(Long id);
 }
