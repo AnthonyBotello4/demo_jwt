@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,4 +25,7 @@ public class Supervisor implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "supervisor", fetch = FetchType.LAZY)
+    private List<Driver> drivers;
 }

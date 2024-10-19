@@ -24,4 +24,8 @@ public class Driver implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supervisor_id")
+    private Supervisor supervisor;
 }
