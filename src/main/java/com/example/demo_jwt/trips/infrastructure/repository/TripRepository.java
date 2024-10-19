@@ -12,4 +12,5 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
     List<Trip> findAllByDriver_Id(Long id);
     List<Trip> findAllByDriver_IdAndStatus_Id(Long driverId, Long statusId);
 
+    List<Trip> findAllByDriver_IdIn(List<Long> driverIds);
 }
