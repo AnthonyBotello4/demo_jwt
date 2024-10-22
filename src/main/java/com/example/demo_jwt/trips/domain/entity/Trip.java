@@ -20,21 +20,24 @@ public class Trip implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "start_point")
-    private String startPoint;
+    @Column(name = "origin")
+    private String origin;
 
-    @Column(name = "end_point")
-    private String endPoint;
+    @Column(name = "destination")
+    private String destination;
 
-    @Column(name = "start_date")
-    private String startDate;
+    @Column(name = "start_time")
+    private String startTime;
 
-    @Column(name = "end_date")
-    private String endDate;
+    @Column(name = "end_time")
+    private String endTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "driver_id")
-    private Driver driver;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "driver_id")
+    //private Driver driver;
+
+    @Column(name = "driver_id")
+    private Long driverId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id")
