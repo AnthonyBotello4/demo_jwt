@@ -90,6 +90,14 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
+    public List<DriverResponseDto> findAllByIdIn(List<Long> ids) {
+        return driverRepository.findAllByIdIn(ids)
+                .stream()
+                .map(driverMapper::driverToResponseDto)
+                .toList();
+    }
+
+    @Override
     public Optional<DriverPrivateProfileDto> getPrivateProfile(Long id) {
         return driverRepository.findById(id)
                 .map(driverMapper::driverToPrivateProfileDto);

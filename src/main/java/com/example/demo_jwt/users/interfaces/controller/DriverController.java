@@ -43,7 +43,7 @@ public class DriverController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_DRIVER')")
+    //@PreAuthorize("hasRole('ROLE_DRIVER')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findById(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
@@ -87,6 +87,12 @@ public class DriverController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @PostMapping("/batch")
+    public ResponseEntity<List<DriverResponseDto>> findAllByIdIn(@RequestBody List<Long> driverIds) {
+        List<DriverResponseDto> drivers = driverService.findAllByIdIn(driverIds);
+        return ResponseEntity.ok(drivers);
     }
 
     /*

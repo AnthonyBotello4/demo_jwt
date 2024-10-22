@@ -13,6 +13,7 @@ public interface DriverService {
     void delete(Long id);
     Optional<DriverResponseDto> findById(Long id);
     List<DriverResponseDto> findAll();
+    List<DriverResponseDto> findAllByIdIn(List<Long> ids);
 
     Optional<DriverPrivateProfileDto> getPrivateProfile(Long id);
     Optional<DriverPublicProfileDto> getPublicProfile(Long id);
