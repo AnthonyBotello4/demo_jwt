@@ -1,6 +1,6 @@
 package com.example.demo_jwt.shared.utils;
 
-public interface Constants {
+public interface ValidationMessageConstants {
 
     Long LENGTH_NAME = 50L;
     Long LENGTH_LAST_NAME = 50L;
